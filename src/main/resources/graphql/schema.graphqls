@@ -1,0 +1,118 @@
+type Query {
+    # Category queries
+    categories(categoryName: String, page: Int = 0, pageSize: Int = 20, sortBy: String = "categoryName", sortOrder: SortDirection = ASC): CategoryPage!
+    category(id: ID!): Category
+    categoryContacts(categoryId: ID!, contactName: String, phone: String, page: Int = 0, pageSize: Int = 20, sortBy: String = "contactName", sortOrder: SortDirection = ASC): ContactPage!
+
+    # Contact queries
+    contacts(contactName: String, phone: String, categoryName: String, page: Int = 0, pageSize: Int = 20, sortBy: String = "contactName", sortOrder: SortDirection = ASC): ContactPage!
+    contact(id: ID!): Contact
+    contactCategories(contactId: ID!, categoryName: String, page: Int = 0, pageSize: Int = 20, sortBy: String = "categoryName", sortOrder: SortDirection = ASC): CategoryPage!
+
+    # Tenant queries (admin only)
+    tenants(name: String, page: Int = 0, pageSize: Int = 20, sortBy: String = "name", sortOrder: SortDirection = ASC): TenantPage!
+    tenant(id: ID!): Tenant
+}
+
+type Mutation {
+    # Category mutations
+    createCategory(input: CategoryInput!): Category!
+    updateCategory(id: ID!, input: CategoryInput!): Category!
+    deleteCategory(id: ID!): Boolean!
+
+    # Contact mutations
+    createContact(input: ContactInput!): Contact!
+    updateContact(id: ID!, input: ContactInput!): Contact!
+    deleteContact(id: ID!): Boolean!
+    addCategoryToContact(contactId: ID!, categoryId: ID!): Contact!
+    removeCategoryFromContact(contactId: ID!, categoryId: ID!): Boolean!
+
+    # Tenant mutations (admin only)
+    createTenant(input: TenantInput!): Tenant!
+    updateTenant(id: ID!, input: TenantInput!): Tenant!
+    deleteTenant(id: ID!): Boolean!
+}
+
+enum SortDirection {
+    ASC
+    DESC
+}
+
+type CategoryPage {
+    content: [Category!]!
+    totalElements: Int!
+    totalPages: Int!
+    pageSize: Int!
+    number: Int!
+    numberOfElements: Int!
+    first: Boolean!
+    last: Boolean!
+    empty: Boolean!
+}
+
+type ContactPage {
+    content: [Contact!]!
+    totalElements: Int!
+    totalPages: Int!
+    pageSize: Int!
+    number: Int!
+    numberOfElements: Int!
+    first: Boolean!
+    last: Boolean!
+    empty: Boolean!
+}
+
+type TenantPage {
+    content: [Tenant!]!
+    totalElements: Int!
+    totalPages: Int!
+    pageSize: Int!
+    number: Int!
+    numberOfElements: Int!
+    first: Boolean!
+    last: Boolean!
+    empty: Boolean!
+}
+
+type Category {
+    id: ID!
+    categoryName: String!
+    description: String
+    contacts(contactName: String, phone: String, page: Int = 0, pageSize: Int = 20, sortBy: String = "contactName", sortOrder: SortDirection = ASC): ContactPage
+}
+
+input CategoryInput {
+    categoryName: String!
+    description: String
+}
+
+type Contact {
+    id: ID!
+    contactName: String!
+    phone: String!
+    email: String
+    categories(categoryName: String, page: Int = 0, pageSize: Int = 20, sortBy: String = "categoryName", sortOrder: SortDirection = ASC): CategoryPage
+}
+
+input ContactInput {
+    contactName: String!
+    phone: String!
+    email: String
+    categoryIds: [ID!]
+}
+
+type Tenant {
+    id: ID!
+    name: String!
+    description: String
+    username: String!
+    role: String!
+}
+
+input TenantInput {
+    name: String!
+    description: String
+    username: String!
+    password: String
+    role: String!
+}
