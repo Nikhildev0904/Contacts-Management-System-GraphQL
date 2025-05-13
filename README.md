@@ -42,12 +42,9 @@ This application follows a multi-tenant architecture where:
 
 ```
 contacts-management-system/
-├── src/main/java/com/cognitree/internship/cms/
+├── src/main/java/com/nikhildev/projects/cms/
 │   ├── config/          # Configuration classes (Security, MongoDB, GraphQL)
-│   ├── graphql/         # GraphQL resolvers, types, and schemas
-│   │   ├── resolvers/   # Query, Mutation, and Subscription resolvers
-│   │   ├── types/       # GraphQL type definitions
-│   │   └── scalars/     # Custom scalar types
+│   ├── resolvers/     # GraphQL resolvers
 │   ├── models/          # Domain models
 │   ├── repositories/    # MongoDB repositories
 │   ├── services/        # Business logic
@@ -63,8 +60,8 @@ contacts-management-system/
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/contacts-management-system.git
-   cd contacts-management-system
+   git clone https://github.com/Nikhildev0904/Contacts-Management-System-GraphQL.git
+   cd Contacts-Management-System-GraphQL
    ```
 
 2. **Ensure MongoDB is running**
@@ -75,15 +72,48 @@ contacts-management-system/
 
 3. **Add GraphQL dependencies to pom.xml**
    ```xml
-   <dependency>
-       <groupId>org.springframework.boot</groupId>
-       <artifactId>spring-boot-starter-graphql</artifactId>
-   </dependency>
-   <dependency>
-       <groupId>com.graphql-java</groupId>
-       <artifactId>graphql-java-extended-scalars</artifactId>
-       <version>20.0</version>
-   </dependency>
+   <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-graphql</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.graphql</groupId>
+            <artifactId>spring-graphql-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
    ```
 
 4. **Build the project**
@@ -733,8 +763,3 @@ management.metrics.export.prometheus.enabled=true
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## Contact
-
-For questions or support, please contact:
-- Email: support@example.com
-- GitHub: https://github.com/yourusername/contacts-management-system
